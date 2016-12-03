@@ -24,15 +24,38 @@ public class MainActivity extends ActionBarActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        displayPrice(quantity * 5);
+        int price = calculatePrice();
+        displayMessage (createOrderSummary(price));
     }
+
+    /**
+     * Create summary of order
+     *
+     * @param price of the order
+     * @return text summary
+     */
+    private String createOrderSummary (int price) {
+        String priceMessage = "Name: Syed Junaid" + "\nQuantity: "+ quantity + "\nTotal: $" + price + "\nThankyou!";
+        displayMessage (priceMessage);
+        return priceMessage;
+    }
+
+
+    /**
+     * Calculates the price of the order.
+     *
+     * @return total price
+     */
+    private int calculatePrice() {
+        return quantity * 5;
+            }
 
     /**
      * This method is called when the + button is clicked.
      */
     public void increment(View view) {
         quantity = quantity + 1;
-        display(quantity);
+        displayQuantity(quantity);
     }
 
     /**
@@ -40,23 +63,24 @@ public class MainActivity extends ActionBarActivity {
      */
     public void decrement(View view) {
         quantity = quantity - 1;
-        display(quantity);
+        displayQuantity(quantity);
     }
 
     /**
      * This method displays the given quantity value on the screen.
      */
-    private void display(int number) {
+    private void displayQuantity(int number) {
         TextView quantityTextView = (TextView) findViewById(
                 R.id.quantity_text_view);
-        quantityTextView.setText("" + number);
+            quantityTextView.setText("" + number);
     }
 
     /**
-     * This method displays the given price on the screen.
+     * This method displays the given text on the screen.
      */
-    private void displayPrice(int number) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+    private void displayMessage(String message) {
+        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
+        orderSummaryTextView.setText(message);
     }
+
 }
